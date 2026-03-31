@@ -1,0 +1,29 @@
+.github/workflows/publish.yml
+  5e17546a7953a9f8 27,29,31
+package.json
+  5e17546a7953a9f8 34,46-50,54
+scripts/build.cjs
+  5e17546a7953a9f8 10
+rollup.config.js
+  5e17546a7953a9f8 5,7,29,32-34,36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.9",
+  "base_commit_sha": "be0eed86d019560c669eebabc0e7b299cc7b4fec",
+  "prompts": {
+    "fb830f27717f2f50": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c3dabed7-3e86-47fb-8ef0-c8124253edb4",
+        "model": "glm-5.1"
+      },
+      "human_author": "陈朋磊 <chenpl3@chinatelecom.cn>",
+      "messages": [],
+      "total_additions": 19,
+      "total_deletions": 20,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
