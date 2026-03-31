@@ -2,9 +2,9 @@ import { createRequire } from 'node:module'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import clear from 'rollup-plugin-clear'
-import typescript from 'rollup-plugin-typescript2'
+import typescript from '@rollup/plugin-typescript'
 import json from '@rollup/plugin-json'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 
 const require = createRequire(import.meta.url)
 const pkg = require('./package.json')
@@ -26,14 +26,14 @@ export default [
     ],
     plugins: [
       clear({ targets: ['dist'], watch: false }),
-      resolve(),
-      commonjs(),
+      resolve({ extensions: ['.ts', '.js', '.json'] }),
       json(),
       typescript({
-        useTsconfigDeclarationDir: true,
-        clean: true,
-        check: false,
+        tsconfig: './tsconfig.json',
+        declaration: true,
+        declarationDir: './dist/types',
       }),
+      commonjs(),
       terser(),
     ],
     external: [

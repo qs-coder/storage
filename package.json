@@ -31,7 +31,7 @@
     "build": "rollup -c && node scripts/build.cjs",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
     "build:electron": "node scripts/build.js",
-    "test": "vitest",
+    "test": "vitest run",
     "prepack": "pnpm build && pnpm build:types"
   },
   "dependencies": {
@@ -43,16 +43,16 @@
     "localforage": "^1.10.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.11.19",
     "@types/sm-crypto": "^0.3.4",
     "bytenode": "^1.5.3",
-    "rollup": "2.60.0",
+    "rollup": "^4.14.0",
     "rollup-plugin-clear": "^2.0.7",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^5.2.2",
     "vitest": "^1.6.0"
   }
