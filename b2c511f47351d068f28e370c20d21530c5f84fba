@@ -1,0 +1,25 @@
+scripts/build.cjs
+  9de441db47aefed2 3-4,6-29,31-38
+package.json
+  9de441db47aefed2 32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.9",
+  "base_commit_sha": "b2c511f47351d068f28e370c20d21530c5f84fba",
+  "prompts": {
+    "8cac3863f96f30ef": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88c604c8-c6cd-4ae6-a5ab-332b14a7bf96",
+        "model": "glm-5.1"
+      },
+      "human_author": "陈朋磊 <chenpl3@chinatelecom.cn>",
+      "messages": [],
+      "total_additions": 36,
+      "total_deletions": 8,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
