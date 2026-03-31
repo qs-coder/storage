@@ -29,6 +29,7 @@
   "scripts": {
     "build": "rollup -c && node scripts/build.cjs",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
+    "build:bytecode": "node scripts/encrypt.cjs",
     "build:electron": "node scripts/build.js",
     "test": "vitest run",
     "prepack": "pnpm build && pnpm build:types"
