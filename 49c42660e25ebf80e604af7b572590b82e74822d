@@ -1,0 +1,23 @@
+package.json
+  9de441db47aefed2 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.9",
+  "base_commit_sha": "49c42660e25ebf80e604af7b572590b82e74822d",
+  "prompts": {
+    "8cac3863f96f30ef": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88c604c8-c6cd-4ae6-a5ab-332b14a7bf96",
+        "model": "glm-5.1"
+      },
+      "human_author": "陈朋磊 <chenpl3@chinatelecom.cn>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 2,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
