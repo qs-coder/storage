@@ -6,10 +6,6 @@ const bytenode = require('bytenode')
 
 const { target, useBytecode } = require('./config.cjs')
 
-/**
- * 参考 im-lib/electron/scripts/encrypt.js 的 bytenode 字节码生成方式
- * 将 dist/index.cjs 编译为 dist/electron/index.jsc，并写入 loader
- */
 async function run() {
   if (!useBytecode()) {
     console.log('[im-storage] encrypt: mode 非 bytecode，跳过')

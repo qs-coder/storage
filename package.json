@@ -24,8 +24,7 @@
   "module": "./dist/index.esm.js",
   "types": "./dist/types/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "build": "rollup -c && node scripts/build.cjs",
@@ -51,9 +50,15 @@
     "@types/node": "^20.11.19",
     "@types/sm-crypto": "^0.3.4",
     "bytenode": "^1.5.3",
+    "electron": "^41.1.0",
     "rollup": "^4.14.0",
     "rollup-plugin-clear": "^2.0.7",
     "typescript": "^5.2.2",
     "vitest": "^1.6.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron"
+    ]
   }
 }
