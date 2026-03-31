@@ -1,0 +1,59 @@
+{
+  "name": "@qs-coder/storage",
+  "type": "module",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qs-coder/storage.git"
+  },
+  "description": "通用存储能力（local/session/memory/electron/cookie 等统一封装）",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs"
+    },
+    "./electron": {
+      "require": "./dist/electron/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "rollup -c && node scripts/build.cjs",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
+    "build:electron": "node scripts/build.js",
+    "test": "vitest",
+    "prepack": "pnpm build && pnpm build:types"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "sm-crypto": "^0.3.12"
+  },
+  "optionalDependencies": {
+    "electron-store": "^8.1.0",
+    "localforage": "^1.10.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@types/node": "^20.11.19",
+    "@types/sm-crypto": "^0.3.4",
+    "bytenode": "^1.5.3",
+    "rollup": "2.60.0",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "typescript": "^5.2.2",
+    "vitest": "^1.6.0"
+  }
+}
