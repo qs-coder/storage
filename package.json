@@ -63,6 +63,9 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "electron"
-    ]
+    ],
+    "overrides": {
+      "lodash-es": "4.17.21"
+    }
   }
 }
