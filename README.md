@@ -1,6 +1,6 @@
-# @ctq/im-storage
+# @qs-coder/storage
 
-IM 通用存储抽象层，提供统一的同步/异步 API，支持多种存储后端和国密 SM4 加密。
+通用存储抽象层，提供统一的同步/异步 API，支持多种存储后端和国密 SM4 加密。
 
 ## 特性
 
@@ -15,7 +15,7 @@ IM 通用存储抽象层，提供统一的同步/异步 API，支持多种存储
 ## 安装
 
 ```bash
-pnpm add @ctq/im-storage
+pnpm add @qs-coder/storage
 ```
 
 依赖项会自动安装：`buffer`、`electron-store`、`localforage`、`sm-crypto`。
@@ -25,7 +25,7 @@ pnpm add @ctq/im-storage
 ### 同步存储（主进程 / Node.js）
 
 ```typescript
-import { createStorageSync } from '@ctq/im-storage'
+import { createStorageSync } from '@qs-coder/storage'
 
 // 内存存储
 const store = createStorageSync({
@@ -45,7 +45,7 @@ store.has('user')   // false
 ### 异步存储（渲染进程 / 浏览器）
 
 ```typescript
-import { createStorage } from '@ctq/im-storage'
+import { createStorage } from '@qs-coder/storage'
 
 const store = createStorage({
   kind: 'localforage',
@@ -207,8 +207,8 @@ store.keys('user') // => ['user.name', 'user.age']
 ### Electron 主进程
 
 ```typescript
-// 通过 @ctq/im-storage/electron 导入（生产环境使用字节码）
-const { createStorageSync } = require('@ctq/im-storage/electron')
+// 通过 @qs-coder/storage/electron 导入（生产环境使用字节码）
+const { createStorageSync } = require('@qs-coder/storage/electron')
 
 const store = createStorageSync({
   kind: 'electron',
@@ -253,7 +253,7 @@ const data = await store.get('bigBlob')
 实现 `SyncDriver` 或 `AsyncDriver` 接口即可：
 
 ```typescript
-import type { SyncDriver } from '@ctq/im-storage'
+import type { SyncDriver } from '@qs-coder/storage'
 
 class RedisDriver implements SyncDriver {
   kind = 'custom' as const
@@ -295,7 +295,7 @@ const store = createStorageSync({
 从多个来源组装密钥，过滤空值后拼接：
 
 ```typescript
-import { assembleStorageSecret } from '@ctq/im-storage'
+import { assembleStorageSecret } from '@qs-coder/storage'
 
 const secret = assembleStorageSecret(userId, appId, deviceId, null, '')
 // => 'userId123appId456device789'
@@ -306,7 +306,7 @@ const secret = assembleStorageSecret(userId, appId, deviceId, null, '')
 混淆密钥，生成 `__im_obf:` 前缀的混淆串，可安全写入配置文件或日志：
 
 ```typescript
-import { obfuscateSecret, deobfuscateSecret } from '@ctq/im-storage'
+import { obfuscateSecret, deobfuscateSecret } from '@qs-coder/storage'
 
 const obf = obfuscateSecret('my-plain-key')
 // => '__im_obf:xxxxxxx...'
@@ -330,7 +330,7 @@ normalizeEncryptionSecret(undefined)   // => undefined
 默认使用 JSON 序列化。可通过 `codec` 选项替换：
 
 ```typescript
-import type { Codec } from '@ctq/im-storage'
+import type { Codec } from '@qs-coder/storage'
 
 const MsgpackCodec: Codec = {
   serialize: (value) => msgpack.encode(value).toString('base64'),
@@ -364,16 +364,15 @@ const store = createStorageSync({
 
 | 路径 | 用途 |
 |------|------|
-| `@ctq/im-storage` | 通用导入（ESM + CJS） |
-| `@ctq/im-storage/electron` | Electron 主进程（字节码优先，开发回退 JS） |
+| `@qs-coder/storage` | 通用导入（ESM + CJS） |
+| `@qs-coder/storage/electron` | Electron 主进程（字节码优先，无字节码时回退 JS） |
 
 ## 构建
 
 ```bash
-cd packages/im-base/storage
-
-pnpm build          # rollup 构建 + electron 字节码
+pnpm build          # rollup 构建 + electron loader
 pnpm build:types    # 生成 .d.ts 类型声明
+pnpm build:bytecode # 编译 electron 字节码（需在目标平台 CI 执行）
 pnpm test           # 运行 vitest 测试
 ```
 
