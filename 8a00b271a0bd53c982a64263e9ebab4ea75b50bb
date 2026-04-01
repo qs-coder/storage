@@ -1,0 +1,23 @@
+README.md
+  9de441db47aefed2 1,18,28,48,210-211,256,298,309,333,367-368,373,375
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.9",
+  "base_commit_sha": "8a00b271a0bd53c982a64263e9ebab4ea75b50bb",
+  "prompts": {
+    "8cac3863f96f30ef": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88c604c8-c6cd-4ae6-a5ab-332b14a7bf96",
+        "model": "glm-5.1"
+      },
+      "human_author": "陈朋磊 <chenpl3@chinatelecom.cn>",
+      "messages": [],
+      "total_additions": 16,
+      "total_deletions": 17,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
