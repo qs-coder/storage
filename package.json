@@ -1,7 +1,7 @@
 {
   "name": "@qs-coder/storage",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -48,12 +48,15 @@
     "@rollup/plugin-node-resolve": "^15.2.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@types/node": "^20.11.19",
     "@types/sm-crypto": "^0.3.4",
     "bytenode": "^1.5.3",
     "electron": "^41.1.0",
     "rollup": "^4.14.0",
     "rollup-plugin-clear": "^2.0.7",
+    "semantic-release": "^25.0.3",
     "typescript": "^5.2.2",
     "vitest": "^1.6.0"
   },
