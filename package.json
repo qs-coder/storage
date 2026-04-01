@@ -1,7 +1,7 @@
 {
   "name": "@qs-coder/storage",
   "type": "module",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
