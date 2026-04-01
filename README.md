@@ -207,7 +207,7 @@ store.keys('user') // => ['user.name', 'user.age']
 ### Electron 主进程
 
 ```typescript
-// 通过 @qs-coder/storage/electron 导入（生产环境使用字节码）
+// 通过 @qs-coder/storage/electron 导入（字节码优先，无字节码时回退 JS）
 const { createStorageSync } = require('@qs-coder/storage/electron')
 
 const store = createStorageSync({
@@ -219,6 +219,88 @@ const store = createStorageSync({
 store.set('windowBounds', { x: 100, y: 100, width: 800, height: 600 })
 const bounds = store.get('windowBounds')
 ```
+
+## Electron 集成指南
+
+### 导入方式
+
+Electron 主进程应通过 `@qs-coder/storage/electron` 导入，而非默认路径：
+
+```typescript
+// ✅ 正确 — 使用 electron 入口
+const { createStorageSync } = require('@qs-coder/storage/electron')
+
+// ❌ 避免 — 默认入口不含字节码加载逻辑
+const { createStorageSync } = require('@qs-coder/storage')
+```
+
+### 加载机制
+
+`@qs-coder/storage/electron` 内置了自动降级逻辑：
+
+1. 尝试加载 `bytenode` 和 `index.jsc`（字节码）
+2. 若失败且非生产环境，打印警告并回退到 `index.cjs`（纯 JS）
+
+这意味着**开发阶段无需任何额外配置**即可正常使用。
+
+### 使用字节码（生产环境）
+
+字节码（`.jsc`）能将 JS 源码编译为 V8 字节码，防止源码被轻易查看。由于字节码依赖编译时的 V8 版本，必须在**目标平台**上编译。
+
+**前提条件：** Electron 项目需安装 `bytenode`：
+
+```bash
+npm install bytenode
+# 或
+pnpm add bytenode
+```
+
+**步骤 1 — 在 Electron 项目的构建脚本中编译字节码：**
+
+在目标平台（macOS / Windows / Linux）的 CI 中执行：
+
+```bash
+# 先安装 @qs-coder/storage 并确保 dist 已存在
+pnpm add @qs-coder/storage
+
+# 在 @qs-coder/storage 的目录下执行字节码编译
+cd node_modules/@qs-coder/storage
+pnpm build:bytecode
+cd ../../..
+```
+
+或者直接在项目构建脚本中调用 bytenode：
+
+```javascript
+const bytenode = require('bytenode')
+const path = require('path')
+
+const pkgDir = path.dirname(require.resolve('@qs-coder/storage/electron'))
+
+await bytenode.compileFile({
+  filename: path.join(pkgDir, '..', 'index.cjs'),
+  output: path.join(pkgDir, 'index.jsc'),
+  electron: true,
+})
+```
+
+**步骤 2 — 确认产物：**
+
+编译成功后，`node_modules/@qs-coder/storage/dist/electron/` 下应包含：
+
+```
+dist/electron/
+├── index.cjs    # loader（自动尝试加载 jsc，失败回退 JS）
+└── index.jsc    # 字节码（平台相关，需在目标平台编译）
+```
+
+**步骤 3 — 打包发布：**
+
+确保 `bytenode` 被包含在 Electron 应用的生产依赖中，然后正常打包即可。
+
+### 不使用字节码
+
+如果不关心源码保护，直接使用 `@qs-coder/storage/electron` 也完全没问题 — 它会自动回退到纯 JS，功能完全一致。
 
 ### 浏览器 localStorage
 
@@ -364,8 +446,8 @@ const store = createStorageSync({
 
 | 路径 | 用途 |
 |------|------|
-| `@qs-coder/storage` | 通用导入（ESM + CJS） |
-| `@qs-coder/storage/electron` | Electron 主进程（字节码优先，无字节码时回退 JS） |
+| `@qs-coder/storage` | 通用导入（ESM + CJS），适用于浏览器 / Node.js |
+| `@qs-coder/storage/electron` | Electron 主进程（CJS only，字节码优先，无字节码时回退 JS） |
 
 ## 构建
 
